@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     public GameObject arrowPrefab;
     public float SensitivityX = 2.0f;
     public float SensitivityY = 2.0f;
+    public float damage = 50f;
     float yaw = 0f;
     float cameraYaw = 0f;
     float modelYaw = 0f;
@@ -93,11 +94,12 @@ public class Player : MonoBehaviour {
                 RaycastHit shootHit;
                 if (Physics.Raycast(cam.position, cam.forward, out shootHit, 1000f))
                 {
-                    var arrowGO = Instantiate(arrowPrefab);
+                    var arrowGO = (GameObject)Instantiate(arrowPrefab, arrowStart.position, Quaternion.identity);
                     Arrow arrowScript = arrowGO.GetComponent<Arrow>();
-                    arrowGO.transform.position = arrowStart.position;
                     arrowScript.target = shootHit.point;
                     arrowScript.speed = 250f;
+                    arrowStart.gameObject.GetComponent<AudioSource>().Play();
+                    shootHit.collider.gameObject.SendMessage("GotHit", damage, SendMessageOptions.DontRequireReceiver);
                 }
             }
             if (shootTimeLeft <= 0f)

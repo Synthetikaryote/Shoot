@@ -774,7 +774,7 @@ ModelImporter:
       takeName: Base Stack
       firstFrame: 175
       lastFrame: 205
-      wrapMode: 0
+      wrapMode: 8
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0

@@ -36,6 +36,10 @@ public class Arrow : MonoBehaviour {
             {
                 // do some effect
                 traveling = false;
+                GetComponent<AudioSource>().Play();
+                var shootEffectGO = transform.FindChild("Shoot Effect").gameObject;
+                shootEffectGO.GetComponent<ParticleSystem>().enableEmission = false;
+                GameObject.Destroy(shootEffectGO, 0.2f);
             }
         }
         else
