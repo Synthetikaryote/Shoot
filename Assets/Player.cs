@@ -12,6 +12,10 @@ public class Player : MonoBehaviour {
     Transform pitchNode;
     Animation ani;
     Vector3 p;
+    bool isOnGround = true;
+    Vector3 v = Vector3.zero;
+    float vy = 0f;
+    string lastAnimation = null;
 
 	// Use this for initialization
 	void Start () {
@@ -49,31 +53,67 @@ public class Player : MonoBehaviour {
             Cursor.visible = true;
         }
 
-        Vector3 v = Vector3.zero;
-        if (Input.GetKey(KeyCode.Period)) v.z += 1f;
-        if (Input.GetKey(KeyCode.E)) v.z -= 1f;
-        if (Input.GetKey(KeyCode.O)) v.x -= 1f;
-        if (Input.GetKey(KeyCode.U)) v.x += 1f;
-        if (v.sqrMagnitude > 0)
+        if (isOnGround && Input.GetKey(KeyCode.Space))
         {
-            v.Normalize();
-            v = new Vector3(v.z * Mathf.Sin(yaw) + v.x * Mathf.Cos(-yaw), v.y, v.z * Mathf.Cos(yaw) + v.x * Mathf.Sin(-yaw));
-            bool running = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+            vy = 30f;
+            isOnGround = false;
+        }
 
-            p += v * (running ? 20f : 4.5f) * Time.deltaTime;
-            ani.Play(running ? "run" : "walk");
+        bool running = !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
+        if (!isOnGround)
+        {
+            vy -= 50f * Time.deltaTime;
+            Blend("run", 0.1f);
+            ani["run"].speed = 0.2f;
         }
         else
         {
-            ani.Play("idle");
+            v.x = 0f;
+            v.z = 0f;
+            if (Input.GetKey(KeyCode.Period)) v.z += 1f;
+            if (Input.GetKey(KeyCode.E)) v.z -= 1f;
+            if (Input.GetKey(KeyCode.O)) v.x -= 1f;
+            if (Input.GetKey(KeyCode.U)) v.x += 1f;
+            if (v.sqrMagnitude > 0)
+            {
+                v.Normalize();
+                v = new Vector3(v.z * Mathf.Sin(yaw) + v.x * Mathf.Cos(-yaw), v.y, v.z * Mathf.Cos(yaw) + v.x * Mathf.Sin(-yaw));
+                
+
+                Blend(running ? "run" : "walk", 0.1f);
+            }
+            else
+            {
+                Blend("idle", 0.1f);
+            }
         }
+        float xzScale = running ? 20f : 4.5f;
+        p.x += xzScale * v.x * Time.deltaTime;
+        p.y += vy * Time.deltaTime;
+        p.z += xzScale * v.z * Time.deltaTime;
 
         RaycastHit hit;
         Terrain.activeTerrain.GetComponent<Collider>().Raycast(new Ray(transform.position + new Vector3(0f, 50f, 0f), -Vector3.up), out hit, 100.0f);
-        if (hit.distance < 100f)
+        if (hit.distance > 0f)
         {
-            p.y = hit.point.y;
+            if (p.y < hit.point.y || isOnGround)
+            {
+                p.y = hit.point.y;
+                isOnGround = true;
+                vy = 0f;
+                ani["run"].speed = 1.0f;
+            }
         }
         transform.position = p;
+    }
+
+    void Blend(string targetAnimation, float time)
+    {
+        if (lastAnimation != null)
+        {
+            ani.Blend(lastAnimation, 0.0f, time);
+        }
+        ani.Blend(targetAnimation, 1.0f, time);
+        lastAnimation = targetAnimation;
     }
 }
