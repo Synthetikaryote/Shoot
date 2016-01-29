@@ -5,11 +5,14 @@ using System.Collections;
 public class Player : MonoBehaviour {
     public float SensitivityX = 2.0f;
     public float SensitivityY = 2.0f;
-    float cameraYaw = 0f;
     float yaw = 0f;
+    float cameraYaw = 0f;
+    float modelYaw = 0f;
+    float targetModelYaw = 0f;
     float pitch = 0f;
     Transform yawNode;
     Transform pitchNode;
+    Transform modelNode;
     Animation ani;
     Vector3 p;
     bool isOnGround = true;
@@ -21,7 +24,8 @@ public class Player : MonoBehaviour {
 	void Start () {
         yawNode = transform.FindChild("YawNode");
         pitchNode = yawNode.FindChild("PitchNode");
-        ani = transform.FindChild("Elf_noArrow").gameObject.GetComponent<Animation>();
+        modelNode = transform.FindChild("Elf_noArrow");
+        ani = modelNode.gameObject.GetComponent<Animation>();
         p = transform.position;
 	}
 	
@@ -77,6 +81,13 @@ public class Player : MonoBehaviour {
             if (v.sqrMagnitude > 0)
             {
                 v.Normalize();
+                targetModelYaw = 2f * Mathf.PI - (Mathf.Atan2(v.z, v.x) - Mathf.PI * 0.5f);
+                Debug.Log(targetModelYaw);
+                float diff = targetModelYaw - modelYaw;
+                if (diff < -Mathf.PI) diff += Mathf.PI * 2f;
+                if (diff > Mathf.PI) diff -= Mathf.PI * 2f;
+                modelYaw += diff * ((Mathf.Pow(1.5f, Time.deltaTime * 20f) - 1) / (0.5f));
+                modelNode.transform.localRotation = Quaternion.AngleAxis(modelYaw / Mathf.PI * 180f, Vector3.up);
                 v = new Vector3(v.z * Mathf.Sin(yaw) + v.x * Mathf.Cos(-yaw), v.y, v.z * Mathf.Cos(yaw) + v.x * Mathf.Sin(-yaw));
                 
 
