@@ -10,12 +10,16 @@ public class Arrow : MonoBehaviour {
     float duration;
     Vector3 p;
     float elapsed = 0;
+    float arrowLength = 4f;
 
 	// Use this for initialization
 	void Start () {
         start = transform.position;
-        duration = (target - start).magnitude / speed;
-        delta = target - transform.position;
+        var dir = (target - start);
+        var dist = dir.magnitude - arrowLength;
+        dir.Normalize();
+        delta = dir * dist;
+        duration = dist / speed;
         transform.LookAt(target);
 	}
 	

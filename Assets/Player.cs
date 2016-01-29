@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
         arrowStart = transform.FindChild("ArrowStart");
         ani = modelNode.gameObject.GetComponent<Animation>();
         p = transform.position;
-        ani["attack 1"].speed = 1.7f;
+        ani["attack 1"].speed = 2.5f;
 	}
 	
 	// Update is called once per frame
