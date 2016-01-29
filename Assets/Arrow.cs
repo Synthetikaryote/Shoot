@@ -2,25 +2,19 @@
 using System.Collections;
 
 public class Arrow : MonoBehaviour {
-    public Vector3 target;
     public float speed;
-    public Vector3 start;
+    public Vector3 direction;
+    public float damage;
+    public float maxDuration = 60f;
     Vector3 delta;
     bool traveling = true;
-    float duration;
     Vector3 p;
     float elapsed = 0;
-    float arrowLength = 4f;
 
 	// Use this for initialization
 	void Start () {
-        start = transform.position;
-        var dir = (target - start);
-        var dist = dir.magnitude - arrowLength;
-        dir.Normalize();
-        delta = dir * dist;
-        duration = dist / speed;
-        transform.LookAt(target);
+        p = transform.position;
+        transform.LookAt(transform.position + direction);
 	}
 	
 	// Update is called once per frame
@@ -28,26 +22,27 @@ public class Arrow : MonoBehaviour {
         elapsed += Time.deltaTime;
         if (traveling)
         {
-            float progress = Mathf.Min(1f, elapsed / duration);
-            p = start + delta * progress;
+            p += direction * speed * Time.deltaTime;
             transform.position = p;
+        }
 
-            if (progress == 1f)
-            {
-                // do some effect
-                traveling = false;
-                GetComponent<AudioSource>().Play();
-                var shootEffectGO = transform.FindChild("Shoot Effect").gameObject;
-                shootEffectGO.GetComponent<ParticleSystem>().enableEmission = false;
-                GameObject.Destroy(shootEffectGO, 0.2f);
-            }
-        }
-        else
+        if (elapsed > maxDuration)
         {
-            if (elapsed - duration > 10f)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
-	}
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        // do some effect
+        traveling = false;
+        GetComponent<Collider>().enabled = false;
+        GetComponent<AudioSource>().Play();
+        var shootEffectGO = transform.FindChild("Shoot Effect").gameObject;
+        shootEffectGO.GetComponent<ParticleSystem>().enableEmission = false;
+        GameObject.Destroy(shootEffectGO, 0.2f);
+
+        col.gameObject.SendMessage("GotHit", damage, SendMessageOptions.DontRequireReceiver);
+        transform.SetParent(col.transform);
+    }
 }

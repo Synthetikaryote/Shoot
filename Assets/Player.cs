@@ -92,14 +92,17 @@ public class Player : MonoBehaviour {
                 shootPending = false;
                 var cam = Camera.main.transform;
                 RaycastHit shootHit;
-                if (Physics.Raycast(cam.position, cam.forward, out shootHit, 1000f))
+                Physics.Raycast(cam.position, cam.forward, out shootHit, 1000f);
+                if (shootHit.distance > 0f)
                 {
                     var arrowGO = (GameObject)Instantiate(arrowPrefab, arrowStart.position, Quaternion.identity);
                     Arrow arrowScript = arrowGO.GetComponent<Arrow>();
-                    arrowScript.target = shootHit.point;
+                    Vector3 dir = shootHit.point - arrowStart.position;
+                    dir.Normalize();
+                    arrowScript.direction = dir;
                     arrowScript.speed = 250f;
+                    arrowScript.damage = damage;
                     arrowStart.gameObject.GetComponent<AudioSource>().Play();
-                    shootHit.collider.gameObject.SendMessage("GotHit", damage, SendMessageOptions.DontRequireReceiver);
                 }
             }
             if (shootTimeLeft <= 0f)
