@@ -43,6 +43,6 @@ public class Arrow : MonoBehaviour {
         GameObject.Destroy(shootEffectGO, 0.2f);
 
         col.gameObject.SendMessage("GotHit", damage, SendMessageOptions.DontRequireReceiver);
-        transform.SetParent(col.transform);
+        elapsed = maxDuration - 1f;
     }
 }

@@ -1,0 +1,308 @@
+fileFormatVersion: 2
+guid: e9b9c81b637c7ec4ebb8eb2f1e06c133
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: bip_horde
+    100002: bip_hordeHead
+    100004: bip_hordeHeadBone001
+    100006: bip_hordeHeadBone002
+    100008: bip_hordeLCalf
+    100010: bip_hordeLCollarbone
+    100012: bip_hordeLDigit11
+    100014: bip_hordeLDigit11 1
+    100016: bip_hordeLDigit12
+    100018: bip_hordeLDigit21
+    100020: bip_hordeLDigit22
+    100022: bip_hordeLFoot
+    100024: bip_hordeLForearm
+    100026: bip_hordeLIKTarget
+    100028: bip_hordeLPalm
+    100030: bip_hordeLPlatform
+    100032: bip_hordeLThigh
+    100034: bip_hordeLUpperarm
+    100036: bip_hordeNeck1
+    100038: bip_hordeNeck2
+    100040: bip_hordePelvis
+    100042: bip_hordeRCalf
+    100044: bip_hordeRCollarbone
+    100046: bip_hordeRDigit11
+    100048: bip_hordeRDigit11 1
+    100050: bip_hordeRDigit12
+    100052: bip_hordeRDigit21
+    100054: bip_hordeRDigit22
+    100056: bip_hordeRFoot
+    100058: bip_hordeRForearm
+    100060: bip_hordeRibcage
+    100062: bip_hordeRIKTarget
+    100064: bip_hordeRPalm
+    100066: bip_hordeRPlatform
+    100068: bip_hordeRThigh
+    100070: bip_hordeRUpperarm
+    100072: bip_hordeSpine1
+    100074: bip_hordeSpine2
+    100076: bon_gob_war_cloth00
+    100078: bon_gob_war_cloth01
+    100080: bon_gob_war_cloth_tip
+    100082: bon_gob_war_jaw
+    100084: bon_gob_war_jaw_tip
+    100086: //RootNode
+    400000: bip_horde
+    400002: bip_hordeHead
+    400004: bip_hordeHeadBone001
+    400006: bip_hordeHeadBone002
+    400008: bip_hordeLCalf
+    400010: bip_hordeLCollarbone
+    400012: bip_hordeLDigit11
+    400014: bip_hordeLDigit11 1
+    400016: bip_hordeLDigit12
+    400018: bip_hordeLDigit21
+    400020: bip_hordeLDigit22
+    400022: bip_hordeLFoot
+    400024: bip_hordeLForearm
+    400026: bip_hordeLIKTarget
+    400028: bip_hordeLPalm
+    400030: bip_hordeLPlatform
+    400032: bip_hordeLThigh
+    400034: bip_hordeLUpperarm
+    400036: bip_hordeNeck1
+    400038: bip_hordeNeck2
+    400040: bip_hordePelvis
+    400042: bip_hordeRCalf
+    400044: bip_hordeRCollarbone
+    400046: bip_hordeRDigit11
+    400048: bip_hordeRDigit11 1
+    400050: bip_hordeRDigit12
+    400052: bip_hordeRDigit21
+    400054: bip_hordeRDigit22
+    400056: bip_hordeRFoot
+    400058: bip_hordeRForearm
+    400060: bip_hordeRibcage
+    400062: bip_hordeRIKTarget
+    400064: bip_hordeRPalm
+    400066: bip_hordeRPlatform
+    400068: bip_hordeRThigh
+    400070: bip_hordeRUpperarm
+    400072: bip_hordeSpine1
+    400074: bip_hordeSpine2
+    400076: bon_gob_war_cloth00
+    400078: bon_gob_war_cloth01
+    400080: bon_gob_war_cloth_tip
+    400082: bon_gob_war_jaw
+    400084: bon_gob_war_jaw_tip
+    400086: //RootNode
+    7400000: death1
+    7400002: GetUp
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 3
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: death1
+      takeName: 
+      firstFrame: 745
+      lastFrame: 763
+      wrapMode: 8
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bip_horde
+        weight: 1
+      - path: bip_hordeLIKTarget
+        weight: 1
+      - path: bip_hordeLPlatform
+        weight: 1
+      - path: bip_hordePelvis
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeLThigh
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeLThigh/bip_hordeLCalf
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeLThigh/bip_hordeLCalf/bip_hordeLFoot
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeLThigh/bip_hordeLCalf/bip_hordeLFoot/bip_hordeLDigit11
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeRThigh
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeRThigh/bip_hordeRCalf
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeRThigh/bip_hordeRCalf/bip_hordeRFoot
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeRThigh/bip_hordeRCalf/bip_hordeRFoot/bip_hordeRDigit11
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeLCollarbone
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeLCollarbone/bip_hordeLUpperarm
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeLCollarbone/bip_hordeLUpperarm/bip_hordeLForearm
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeLCollarbone/bip_hordeLUpperarm/bip_hordeLForearm/bip_hordeLPalm
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeLCollarbone/bip_hordeLUpperarm/bip_hordeLForearm/bip_hordeLPalm/bip_hordeLDigit11
+          1
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeLCollarbone/bip_hordeLUpperarm/bip_hordeLForearm/bip_hordeLPalm/bip_hordeLDigit11
+          1/bip_hordeLDigit12
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeLCollarbone/bip_hordeLUpperarm/bip_hordeLForearm/bip_hordeLPalm/bip_hordeLDigit21
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeLCollarbone/bip_hordeLUpperarm/bip_hordeLForearm/bip_hordeLPalm/bip_hordeLDigit21/bip_hordeLDigit22
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeNeck1
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeNeck1/bip_hordeNeck2
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeNeck1/bip_hordeNeck2/bip_hordeHead
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeNeck1/bip_hordeNeck2/bip_hordeHead/bip_hordeHeadBone001
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeNeck1/bip_hordeNeck2/bip_hordeHead/bip_hordeHeadBone002
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeNeck1/bip_hordeNeck2/bip_hordeHead/bon_gob_war_jaw
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeNeck1/bip_hordeNeck2/bip_hordeHead/bon_gob_war_jaw/bon_gob_war_jaw_tip
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeRCollarbone
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeRCollarbone/bip_hordeRUpperarm
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeRCollarbone/bip_hordeRUpperarm/bip_hordeRForearm
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeRCollarbone/bip_hordeRUpperarm/bip_hordeRForearm/bip_hordeRPalm
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeRCollarbone/bip_hordeRUpperarm/bip_hordeRForearm/bip_hordeRPalm/bip_hordeRDigit11
+          1
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeRCollarbone/bip_hordeRUpperarm/bip_hordeRForearm/bip_hordeRPalm/bip_hordeRDigit11
+          1/bip_hordeRDigit12
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeRCollarbone/bip_hordeRUpperarm/bip_hordeRForearm/bip_hordeRPalm/bip_hordeRDigit21
+        weight: 1
+      - path: bip_hordePelvis/bip_hordeSpine1/bip_hordeSpine2/bip_hordeRibcage/bip_hordeRCollarbone/bip_hordeRUpperarm/bip_hordeRForearm/bip_hordeRPalm/bip_hordeRDigit21/bip_hordeRDigit22
+        weight: 1
+      - path: bip_hordePelvis/bon_gob_war_cloth00
+        weight: 1
+      - path: bip_hordePelvis/bon_gob_war_cloth00/bon_gob_war_cloth01
+        weight: 1
+      - path: bip_hordePelvis/bon_gob_war_cloth00/bon_gob_war_cloth01/bon_gob_war_cloth_tip
+        weight: 1
+      - path: bip_hordeRIKTarget
+        weight: 1
+      - path: bip_hordeRPlatform
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GetUp
+      takeName: 
+      firstFrame: 763
+      lastFrame: 790
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
