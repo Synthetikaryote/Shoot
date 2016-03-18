@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
     public float SensitivityX = 2.0f;
     public float SensitivityY = 2.0f;
     public float damage = 50f;
+    public float hitPoints = 100f;
     float yaw = 0f;
     float cameraYaw = 0f;
     float modelYaw = 0f;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour {
     string lastAnimation = null;
     float shootTimeLeft = 0f;
     bool shootPending = false;
+    float stunDuration = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -119,14 +121,23 @@ public class Player : MonoBehaviour {
             animation = "run";
             ani["run"].speed = 0.2f;
         }
+        else if (stunDuration > 0f)
+        {
+            stunDuration -= Time.deltaTime;
+            v = Vector3.zero;
+            if (hitPoints > 0)
+            {
+                animation = "hit 2";
+            }
+            else
+            {
+                animation = "death";
+            }
+        }
         else
         {
-            v.x = 0f;
-            v.z = 0f;
-            if (Input.GetKey(KeyCode.Period)) v.z += 1f;
-            if (Input.GetKey(KeyCode.E)) v.z -= 1f;
-            if (Input.GetKey(KeyCode.O)) v.x -= 1f;
-            if (Input.GetKey(KeyCode.U)) v.x += 1f;
+            v.x = Input.GetAxisRaw("Horizontal");
+            v.z = Input.GetAxisRaw("Vertical");
             if (v.sqrMagnitude > 0)
             {
                 CancelShoot();
@@ -178,5 +189,18 @@ public class Player : MonoBehaviour {
     {
         shootTimeLeft = 0f;
         shootPending = false;
+    }
+
+    public void GotHit(float damage)
+    {
+        hitPoints = Mathf.Max(0f, hitPoints - damage);
+        if (hitPoints > 0f)
+        {
+            stunDuration = 0.5f;
+        }
+        else
+        {
+            stunDuration = 20f;
+        }
     }
 }

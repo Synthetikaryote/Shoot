@@ -2,23 +2,28 @@
 using System.Collections;
 
 public class Frog : MonoBehaviour {
-    public float walkDistance = 100f;
+    public float walkDistance = 70f;
     public float runDistance = 30f;
+    public float attackDistance = 5f;
     public float walkSpeed = 2f;
     public float runSpeed = 7f;
     public float hitPoints = 100f;
+    public float damage = 5f;
     Vector3 p;
     GameObject player;
     Animation ani;
     string lastAnimation = null;
     float stunDuration = 0f;
+    float attackDelay = 0f;
+    Collider terrainCollider;
 
     // Use this for initialization
     void Start () {
         p = transform.position;
         player = GameObject.Find("Player");
         ani = transform.FindChild("Stone_Frog_Green").GetComponent<Animation>();
-	}
+        terrainCollider = Terrain.activeTerrain.GetComponent<Collider>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,17 +32,41 @@ public class Frog : MonoBehaviour {
             stunDuration = Mathf.Max(0f, stunDuration - Time.deltaTime);
         }
         else {
-            if ((player.transform.position - p).sqrMagnitude < walkDistance * walkDistance)
+            Vector3 dir = player.transform.position - p;
+            dir.Normalize();
+            if ((player.transform.position - p).sqrMagnitude < attackDistance * attackDistance)
+            {
+                if (attackDelay <= 0f)
+                {
+                    attackDelay = 2f;
+                    transform.LookAt(player.transform);
+                    player.GetComponent<Player>().GotHit(damage);
+                    Blend("Attack1", 0.1f);
+                }
+                else
+                {
+                    attackDelay -= Time.deltaTime;
+                }
+            }
+            else if ((player.transform.position - p).sqrMagnitude < runDistance * runDistance)
             {
                 transform.LookAt(player.transform);
-                Vector3 dir = player.transform.position - p;
-                dir.Normalize();
+                p += dir * runSpeed * Time.deltaTime;
+                Blend("Run", 0.1f);
+            }
+            else if ((player.transform.position - p).sqrMagnitude < walkDistance * walkDistance)
+            {
+                transform.LookAt(player.transform);
                 p += dir * walkSpeed * Time.deltaTime;
                 Blend("Walk", 0.1f);
             }
+            else
+            {
+                Blend("Idle", 0.1f);
+            }
 
             RaycastHit hit;
-            if (Terrain.activeTerrain.GetComponent<Collider>().Raycast(new Ray(transform.position + new Vector3(0f, 50f, 0f), -Vector3.up), out hit, 100.0f))
+            if (terrainCollider.Raycast(new Ray(transform.position + new Vector3(0f, 50f, 0f), -Vector3.up), out hit, 100.0f))
             {
                 p.y = hit.point.y;
             }
