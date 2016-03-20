@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 
@@ -26,6 +27,9 @@ public class Player : MonoBehaviour {
     float shootTimeLeft = 0f;
     bool shootPending = false;
     float stunDuration = 0f;
+    public delegate void OnSoundDelegate(Vector3 loc);
+    public OnSoundDelegate OnSound;
+    public int killCount = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -202,5 +206,10 @@ public class Player : MonoBehaviour {
         {
             stunDuration = 20f;
         }
+    }
+
+    public void GotKill() {
+        ++killCount;
+        GameObject.Find("KillCount").GetComponent<Text>().text = "Kill Count: " + killCount;
     }
 }

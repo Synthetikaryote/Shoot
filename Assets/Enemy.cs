@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
     public float runSpeed = 7f;
     public float hitPoints = 100f;
     public float damage = 5f;
+    public float detectDistance = 30f;
     public Animation ani;
     public string animationIdle;
     public string animationAttack;
@@ -28,8 +29,15 @@ public class Enemy : MonoBehaviour {
     void Start () {
         p = transform.position;
         player = GameObject.Find("Player");
+        player.GetComponent<Player>().OnSound += OnSound;
         terrainCollider = Terrain.activeTerrain.GetComponent<Collider>();
         collider = GetComponent<Collider>();
+    }
+
+    void OnSound(Vector3 loc) {
+        if ((loc - transform.position).sqrMagnitude < detectDistance * detectDistance) {
+            runDistance = 1000f;
+        }
     }
 	
 	// Update is called once per frame
@@ -89,7 +97,6 @@ public class Enemy : MonoBehaviour {
         }
         ani.Blend(targetAnimation, 1.0f, time);
         lastAnimation = targetAnimation;
-        Debug.Log(targetAnimation);
     }
 
     void GotHit(float damage)
@@ -106,6 +113,8 @@ public class Enemy : MonoBehaviour {
             collider.enabled = false; 
             stunDuration = 20f;
             Blend(animationDeath, 0.1f);
+            player.GetComponent<Player>().OnSound -= OnSound;
+            player.GetComponent<Player>().GotKill();
             GameObject.Destroy(gameObject, 20f);
         }
     }

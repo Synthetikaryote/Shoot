@@ -10,11 +10,13 @@ public class Arrow : MonoBehaviour {
     bool traveling = true;
     Vector3 p;
     float elapsed = 0;
+    Player player;
 
 	// Use this for initialization
 	void Start () {
         p = transform.position;
         transform.LookAt(transform.position + direction);
+        player = GameObject.Find("Player").GetComponent<Player>();
 	}
 	
 	// Update is called once per frame
@@ -44,5 +46,8 @@ public class Arrow : MonoBehaviour {
 
         col.gameObject.SendMessage("GotHit", damage, SendMessageOptions.DontRequireReceiver);
         elapsed = maxDuration - 1f;
+        if (player.OnSound != null) {
+            player.OnSound(transform.position);
+        }
     }
 }
