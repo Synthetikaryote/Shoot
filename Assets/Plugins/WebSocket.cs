@@ -10,6 +10,12 @@ using System.Runtime.InteropServices;
 
 public class WebSocket
 {
+    public delegate void OnErrorDelegate(string message);
+    public OnErrorDelegate OnError;
+    public delegate void OnLogMessageDelegate(WebSocketSharp.LogData logData, string message);
+    public OnLogMessageDelegate OnLogMessage;
+    bool m_IsConnected = false;
+
 	private Uri mUrl;
 
 	public WebSocket(Uri url)
@@ -33,6 +39,14 @@ public class WebSocket
 			return null;
 		return Encoding.UTF8.GetString (retval);
 	}
+
+    public bool isConnected
+    {
+        get
+        {
+            return m_IsConnected;
+        }
+    }
 
 #if UNITY_WEBGL && !UNITY_EDITOR
 	[DllImport("__Internal")]
@@ -79,14 +93,16 @@ public class WebSocket
 
 		while (SocketState(m_NativeRef) == 0)
 			yield return 0;
-	}
+        m_IsConnected = true;
+    }
  
 	public void Close()
 	{
 		SocketClose(m_NativeRef);
+        m_IsConnected = false;
 	}
 
-	public string error
+	public string lastError
 	{
 		get {
 			const int bufsize = 1024;
@@ -100,17 +116,20 @@ public class WebSocket
 		}
 	}
 #else
-	WebSocketSharp.WebSocket m_Socket;
+    WebSocketSharp.WebSocket m_Socket;
 	Queue<byte[]> m_Messages = new Queue<byte[]>();
-	bool m_IsConnected = false;
 	string m_Error = null;
 
 	public IEnumerator Connect()
 	{
 		m_Socket = new WebSocketSharp.WebSocket(mUrl.ToString());
+        m_Socket.Log.Output += (logData, message) => { OnLogMessage(logData, message); };
 		m_Socket.OnMessage += (sender, e) => m_Messages.Enqueue (e.RawData);
 		m_Socket.OnOpen += (sender, e) => m_IsConnected = true;
-		m_Socket.OnError += (sender, e) => m_Error = e.Message;
+        m_Socket.OnError += (sender, e) => {
+            m_Error = e.Message;
+            OnError(e.Message);
+        };
 		m_Socket.ConnectAsync();
 		while (!m_IsConnected && m_Error == null)
 			yield return 0;
@@ -133,7 +152,7 @@ public class WebSocket
 		m_Socket.Close();
 	}
 
-	public string error
+	public string lastError
 	{
 		get {
 			return m_Error;
