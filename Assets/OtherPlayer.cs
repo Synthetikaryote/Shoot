@@ -20,6 +20,8 @@ public class OtherPlayer : Player {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        transform.localRotation = Quaternion.AngleAxis(yaw / Mathf.PI * 180f, Vector3.up);
+        pitchNode.transform.localRotation = Quaternion.AngleAxis(-pitch / Mathf.PI * 180f, Vector3.right);
+        transform.position = p;
+    }
 }
