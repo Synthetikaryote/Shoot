@@ -7,8 +7,12 @@ public class LocalPlayer : Player {
     public float SensitivityX = 2.0f;
     public float SensitivityY = 2.0f;
 
+    Uber uber;
+    Vector3 lastPos = Vector3.zero;
+
 	// Use this for initialization
 	void Start () {
+        uber = GameObject.FindObjectOfType<Uber>();
 	}
 	
 	// Update is called once per frame
@@ -130,6 +134,11 @@ public class LocalPlayer : Player {
             }
         }
         transform.position = p;
+
+        if (lastPos != p && uber.isConnected) {
+            lastPos = p;
+            uber.server.UpdatePosition(p);
+        }
     }
 
     void CancelShoot() {

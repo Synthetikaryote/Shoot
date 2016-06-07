@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public class Uber : MonoBehaviour {
     public GameObject OtherPlayerPrefab;
 
-    ServerCommunication server;
+    public ServerCommunication server;
+    public bool isConnected = false;
     Player player = null;
     Dictionary<uint, OtherPlayer> otherPlayers;
 
@@ -19,6 +20,8 @@ public class Uber : MonoBehaviour {
                 var other = pair.Value;
                 AddPlayer(pair.Value);
             }
+            server.EnterGame(server.player.id.ToString(), player.gameObject.transform.position, player.hitPoints);
+            isConnected = true;
         };
         server.onPlayerMoved += other => {
             otherPlayers[other.id].gameObject.transform.position = other.pos;
