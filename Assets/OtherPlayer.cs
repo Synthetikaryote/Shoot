@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OtherPlayer : MonoBehaviour {
+public class OtherPlayer : Player {
     public string playerName {
         set {
 

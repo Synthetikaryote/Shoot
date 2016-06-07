@@ -36,7 +36,11 @@ public class Uber : MonoBehaviour {
             else
                 otherPlayers[other.id].health = health;
         };
-	}
+        server.onPlayerUpdateState += (other, state) => {
+            if (other.id != server.player.id)
+                otherPlayers[other.id].state = state;
+        };
+    }
 
     void AddPlayer(ServerCommunication.Player other) {
         var otherGO = Instantiate(OtherPlayerPrefab, other.pos, Quaternion.identity) as GameObject;

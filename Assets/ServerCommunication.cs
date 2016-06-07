@@ -15,6 +15,7 @@ public class ServerCommunication : MonoBehaviour {
         specHeartbeat = 5,
         specHeartbeatResponse = 6,
         specUpdateHealth = 7,
+        specUpdateState = 8,
         // client only
         specMessage = 502;
 
@@ -24,6 +25,7 @@ public class ServerCommunication : MonoBehaviour {
         public string name = null;
         public Vector3 pos = Vector3.zero;
         public float health = 0.0f;
+        public byte[] state = null;
     }
 
     public const int nameLength = 16;
@@ -43,6 +45,8 @@ public class ServerCommunication : MonoBehaviour {
     public PlayerMessage onPlayerMessage;
     public delegate void PlayerUpdateHealth(Player player, float health);
     public PlayerUpdateHealth onPlayerUpdateHealth;
+    public delegate void PlayerUpdateState(Player player, byte[] state);
+    public PlayerUpdateState onPlayerUpdateState;
 
 
     // Use this for initialization
@@ -175,6 +179,32 @@ public class ServerCommunication : MonoBehaviour {
                             uint id = BitConverter.ToUInt32(reply, 4);
                             float health = BitConverter.ToSingle(reply, 8);
                             Player updatedPlayer = null;
+                            if (id == player.id)
+                            {
+                                updatedPlayer = player;
+                            } else
+                            {
+                                Player other = null;
+                                if (otherPlayers.TryGetValue(id, out other))
+                                {
+                                    updatedPlayer = other;
+                                }
+                            }
+                            if (updatedPlayer != null)
+                            {
+                                updatedPlayer.health = health;
+                                if (onPlayerUpdateHealth != null)
+                                    onPlayerUpdateHealth(updatedPlayer, health);
+                            }
+                            break;
+                        }
+                    case specUpdateState:
+                        {
+                            uint id = BitConverter.ToUInt32(reply, 4);
+                            int stateSize = reply.Length - 4;
+                            byte[] state = new byte[stateSize];
+                            Buffer.BlockCopy(reply, 4, state, 0, stateSize);
+                            Player updatedPlayer = null;
                             if (id == player.id) {
                                 updatedPlayer = player;
                             } else {
@@ -184,9 +214,9 @@ public class ServerCommunication : MonoBehaviour {
                                 }
                             }
                             if (updatedPlayer != null) {
-                                updatedPlayer.health = health;
-                                if (onPlayerUpdateHealth != null)
-                                    onPlayerUpdateHealth(updatedPlayer, health);
+                                updatedPlayer.state = state;
+                                if (onPlayerUpdateState != null)
+                                    onPlayerUpdateState(updatedPlayer, state);
                             }
                             break;
                         }
@@ -284,6 +314,15 @@ public class ServerCommunication : MonoBehaviour {
         if (!Validate("SendHeartbeatResponse")) return;
         var stream = new MemoryStream();
         stream.Write(BitConverter.GetBytes(specHeartbeatResponse), 0, 4);
+        w.Send(stream.ToArray());
+    }
+
+    public void UpdateState(byte[] state) {
+        if (!Validate("UpdateState")) return;
+        var stream = new MemoryStream();
+        stream.Write(BitConverter.GetBytes(specUpdateState), 0, 4);
+        stream.Write(BitConverter.GetBytes(player.id), 0, 4);
+        stream.Write(state, 0, state.Length);
         w.Send(stream.ToArray());
     }
 }
