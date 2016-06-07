@@ -22,6 +22,7 @@ public class OtherPlayer : Player {
 	void Update () {
         transform.localRotation = Quaternion.AngleAxis(yaw / Mathf.PI * 180f, Vector3.up);
         pitchNode.transform.localRotation = Quaternion.AngleAxis(-pitch / Mathf.PI * 180f, Vector3.right);
+        modelNode.transform.localRotation = Quaternion.AngleAxis(modelYaw / Mathf.PI * 180f, Vector3.up);
         transform.position = p;
     }
 }
