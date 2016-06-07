@@ -40,8 +40,10 @@ public class Player : MonoBehaviour {
             pitch = BitConverter.ToSingle(state, 16);
             modelYaw = BitConverter.ToSingle(state, 20);
             int animationBytes = BitConverter.ToInt32(state, 24);
-            string animation = Encoding.Unicode.GetString(state, 28, animationBytes);
-            Blend(animation, 0.1f);
+            if (animationBytes > 0) {
+                string animation = Encoding.Unicode.GetString(state, 28, animationBytes);
+                Blend(animation, 0.1f);
+            }
         }
         get {
             var stream = new MemoryStream();
@@ -51,9 +53,13 @@ public class Player : MonoBehaviour {
             stream.Write(BitConverter.GetBytes(yaw), 0, 4);
             stream.Write(BitConverter.GetBytes(pitch), 0, 4);
             stream.Write(BitConverter.GetBytes(modelYaw), 0, 4);
-            var animation = Encoding.Unicode.GetBytes(lastAnimation);
-            stream.Write(BitConverter.GetBytes(lastAnimation.Length), 0, 4);
-            stream.Write(animation, 0, lastAnimation.Length);
+            if (lastAnimation != null) {
+                var animation = Encoding.Unicode.GetBytes(lastAnimation);
+                stream.Write(BitConverter.GetBytes(lastAnimation.Length), 0, 4);
+                stream.Write(animation, 0, lastAnimation.Length);
+            } else {
+                stream.Write(BitConverter.GetBytes(0), 0, 4);
+            }
             return stream.ToArray();
         }
     }
