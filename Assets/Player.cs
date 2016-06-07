@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
             if (lastAnimation != null) {
                 var animation = Encoding.Unicode.GetBytes(lastAnimation);
                 stream.Write(BitConverter.GetBytes(animation.Length), 0, 4);
-                stream.Write(animation, 0, lastAnimation.Length);
+                stream.Write(animation, 0, animation.Length);
             } else {
                 stream.Write(BitConverter.GetBytes(0), 0, 4);
             }
