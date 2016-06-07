@@ -201,9 +201,9 @@ public class ServerCommunication : MonoBehaviour {
                     case specUpdateState:
                         {
                             uint id = BitConverter.ToUInt32(reply, 4);
-                            int stateSize = reply.Length - 4;
+                            int stateSize = reply.Length - 8;
                             byte[] state = new byte[stateSize];
-                            Buffer.BlockCopy(reply, 4, state, 0, stateSize);
+                            Buffer.BlockCopy(reply, 8, state, 0, stateSize);
                             Player updatedPlayer = null;
                             if (id == player.id) {
                                 updatedPlayer = player;

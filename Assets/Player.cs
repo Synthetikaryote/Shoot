@@ -36,12 +36,12 @@ public class Player : MonoBehaviour {
     public byte[] state {
         set {
             p = new Vector3(BitConverter.ToSingle(value, 0), BitConverter.ToSingle(value, 4), BitConverter.ToSingle(value, 8));
-            yaw = BitConverter.ToSingle(state, 12);
-            pitch = BitConverter.ToSingle(state, 16);
-            modelYaw = BitConverter.ToSingle(state, 20);
-            int animationBytes = BitConverter.ToInt32(state, 24);
+            yaw = BitConverter.ToSingle(value, 12);
+            pitch = BitConverter.ToSingle(value, 16);
+            modelYaw = BitConverter.ToSingle(value, 20);
+            int animationBytes = BitConverter.ToInt32(value, 24);
             if (animationBytes > 0) {
-                string animation = Encoding.Unicode.GetString(state, 28, animationBytes);
+                string animation = Encoding.Unicode.GetString(value, 28, animationBytes);
                 Blend(animation, 0.1f);
             }
         }
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour {
             stream.Write(BitConverter.GetBytes(modelYaw), 0, 4);
             if (lastAnimation != null) {
                 var animation = Encoding.Unicode.GetBytes(lastAnimation);
-                stream.Write(BitConverter.GetBytes(lastAnimation.Length), 0, 4);
+                stream.Write(BitConverter.GetBytes(animation.Length), 0, 4);
                 stream.Write(animation, 0, lastAnimation.Length);
             } else {
                 stream.Write(BitConverter.GetBytes(0), 0, 4);
