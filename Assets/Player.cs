@@ -11,6 +11,10 @@ public class Player : MonoBehaviour {
     public float hitPoints = 100f;
     public delegate void OnSoundDelegate(Vector3 loc);
     public OnSoundDelegate OnSound;
+    public float runSpeed = 10f;
+    public float walkSpeed = 2.25f;
+    public float jumpVelocity = 7.5f;
+    public float gravity = 15f;
     public int killCount = 0;
 
     protected Uber uber;

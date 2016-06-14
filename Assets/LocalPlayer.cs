@@ -42,7 +42,7 @@ public class LocalPlayer : Player {
         }
 
         if (isOnGround && Input.GetKey(KeyCode.Space)) {
-            vy = 30f;
+            vy = jumpVelocity;
             isOnGround = false;
         }
 
@@ -82,7 +82,7 @@ public class LocalPlayer : Player {
         bool running = !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
         if (!isOnGround) {
             CancelShoot();
-            vy -= 50f * Time.deltaTime;
+            vy -= gravity * Time.deltaTime;
             animation = "run";
             ani["run"].speed = 0.2f;
         }
@@ -108,7 +108,7 @@ public class LocalPlayer : Player {
                 animation = running ? "run" : "walk";
             }
         }
-        float xzScale = running ? 20f : 4.5f;
+        float xzScale = running ? runSpeed : walkSpeed;
         p.x += xzScale * v.x * Time.deltaTime;
         p.y += vy * Time.deltaTime;
         p.z += xzScale * v.z * Time.deltaTime;
