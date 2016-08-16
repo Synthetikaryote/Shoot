@@ -113,10 +113,11 @@ public class LocalPlayer : Player {
         p.y += vy * Time.deltaTime;
         p.z += xzScale * v.z * Time.deltaTime;
 
-        float diff = targetModelYaw - modelYaw;
-        if (diff < -Mathf.PI) diff += Mathf.PI * 2f;
-        if (diff > Mathf.PI) diff -= Mathf.PI * 2f;
-        modelYaw += diff * ((Mathf.Pow(1.5f, Time.deltaTime * 20f) - 1) / (0.5f));
+        //float diff = targetModelYaw - modelYaw;
+        //if (diff < -Mathf.PI) diff += Mathf.PI * 2f;
+        //if (diff > Mathf.PI) diff -= Mathf.PI * 2f;
+        //modelYaw += diff * ((Mathf.Pow(1.5f, Time.deltaTime * 20f) - 1) / (0.5f));
+        modelYaw = targetModelYaw;
         modelNode.transform.localRotation = Quaternion.AngleAxis(modelYaw / Mathf.PI * 180f, Vector3.up);
 
         Blend(animation, 0.1f);
