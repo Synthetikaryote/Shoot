@@ -51,7 +51,7 @@ public class ServerCommunication : MonoBehaviour {
 
     // Use this for initialization
     IEnumerator Start () {
-		w = new WebSocket(new Uri("ws://ec2-54-187-163-147.us-west-2.compute.amazonaws.com:16248"));
+		w = new WebSocket(new Uri("ws://ec2-54-213-60-9.us-west-2.compute.amazonaws.com:16248"));
         w.OnError += OnError;
         w.OnLogMessage += OnLogMessage;
         Debug.Log("Trying to connect");
